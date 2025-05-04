@@ -150,7 +150,7 @@ class Kamal::Configuration::Role
   end
 
   def ensure_one_host_for_ssl
-    if running_proxy? && proxy.ssl? && hosts.size > 1
+    if running_proxy? && proxy.ssl? && hosts.size > 1 && !proxy.custom_ssl_certificate?
       raise Kamal::ConfigurationError, "SSL is only supported on a single server, found #{hosts.size} servers for role #{name}"
     end
   end

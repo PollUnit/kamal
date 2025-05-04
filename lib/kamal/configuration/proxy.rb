@@ -23,6 +23,10 @@ class Kamal::Configuration::Proxy
     proxy_config.fetch("ssl", false)
   end
 
+  def custom_ssl_certificate?
+    proxy_config["ssl_certificate_path"].presence && proxy_config["ssl_private_key_path"].presence
+  end
+
   def hosts
     proxy_config["hosts"] || proxy_config["host"]&.split(",") || []
   end
@@ -31,6 +35,10 @@ class Kamal::Configuration::Proxy
     {
       host: hosts,
       tls: proxy_config["ssl"].presence,
+      "tls-certificate-path": proxy_config["ssl_certificate_path"].presence,
+      "tls-private-key-path": proxy_config["ssl_private_key_path"].presence,
+      "path-prefix": proxy_config["path_prefix"].presence,
+      "strip-path-prefix": proxy_config["strip_path_prefix"].nil? ? true : proxy_config["strip_path_prefix"],
       "deploy-timeout": seconds_duration(config.deploy_timeout),
       "drain-timeout": seconds_duration(config.drain_timeout),
       "health-check-interval": seconds_duration(proxy_config.dig("healthcheck", "interval")),

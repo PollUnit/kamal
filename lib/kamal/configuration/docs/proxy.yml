@@ -33,6 +33,9 @@ proxy:
   # Defaults to 80:
   app_port: 3000
 
+  path_prefix: /foo
+  strip_path_prefix: true
+
   # SSL
   #
   # kamal-proxy can provide automatic HTTPS for your application via Let's Encrypt.
@@ -46,6 +49,9 @@ proxy:
   #
   # Defaults to `false`:
   ssl: true
+
+  ssl_certificate_path: ""
+  ssl_private_key_path: ""
 
   # SSL redirect
   #
